@@ -1,12 +1,14 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { GetStockPriceResponse, requestGetStockPrice } from "../../api/stock";
+import AuthContext from "../../context/Auth";
 
 const StockPage = () => {
   const navigate = useNavigate();
   const { ticker } = useParams();
   const [stockPriceResponse, setStockPriceResponse] = useState<GetStockPriceResponse | null>(null);
   const [ isChartVisible, setIsChartVisible ] = useState(true);
+  const authContextValue = useContext(AuthContext);
   var requestGetStockPriceInterval: NodeJS.Timer;
 
   useEffect(() => {
@@ -23,10 +25,10 @@ const StockPage = () => {
     <>
       <button onClick={() => navigate(-1)}>back</button>
       <div>
-        Stock Page with {ticker}
+        {stockPriceResponse?.title} {ticker}
       </div>
       <div>
-        price is {stockPriceResponse?.price}
+        {stockPriceResponse?.price} | {stockPriceResponse?.changePercent}
       </div>
       <button onClick={() => setIsChartVisible(true)}>Chart</button>
       <button onClick={() => setIsChartVisible(false)}>Community</button>
@@ -42,7 +44,10 @@ const StockPage = () => {
           ))}
         </div>
       }
-      <button>Buy</button>
+      {authContextValue.isLogin ? 
+        <button>Buy</button> :
+        <div>should login</div>
+      }
     </>
   );
 };
