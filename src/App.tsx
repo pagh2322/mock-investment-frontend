@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactECharts from 'echarts-for-react';
 import './App.css';
 import { Route, Routes } from 'react-router-dom';
 import PATH from './constants/path';
@@ -12,7 +11,7 @@ const App = () => {
     <Routes>
       <Route path={PATH.HOME} element={<MainPage />} />
       <Route path={PATH.LOGIN} element={<LoginPage />} />
-      <Route path={`${PATH.STOCK}/:id`} element={<StockPage />} />
+      <Route path={`${PATH.STOCK}/:ticker`} element={<StockPage />} />
     </Routes>
   );
 }
