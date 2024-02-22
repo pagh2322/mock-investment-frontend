@@ -1,3 +1,6 @@
+import { useNavigate } from "react-router-dom";
+import PATH from "../../../../constants/path";
+
 interface StockListItemProps {
   title: string;
   ticker: string;
@@ -7,8 +10,9 @@ interface StockListItemProps {
 }
 
 const StockListItem = (props: StockListItemProps) => {
+  const navigate = useNavigate();
   return (
-    <div>
+    <div onClick={() => navigate(`${PATH.STOCK}/${props.ticker}`)}>
       <div>{props.ranking} {props.title}</div>
       <div>{props.price} | {props.percent}</div>
     </div>

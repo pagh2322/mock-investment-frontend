@@ -5,9 +5,9 @@ export interface GetStockPriceResponse {
   id: string;
   title: string;
   price: number;
-  dayVolume: string;
+  dayVolume?: string;
   changePercent: number;
-  lastSize: string;
+  lastSize?: string;
 };
 
 export const requestGetStockPrice = (ticker: String) => 
