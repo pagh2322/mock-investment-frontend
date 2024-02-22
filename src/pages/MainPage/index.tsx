@@ -5,17 +5,19 @@ import { useContext, useEffect, useState } from "react";
 import AuthContext from "../../context/Auth";
 import { GetStockPriceResponse, requestGetAllStockPrice } from "../../api/stock";
 import StockListItem from "./components/StockListItem";
+import { Cookies, useCookies } from "react-cookie";
+import axios from "axios";
 
 const MainPage = () => {
   const navigate = useNavigate();
   const authContextValue = useContext(AuthContext);
+  const [cookies, setCookie, removeCookie] = useCookies(['Authorization']);
   const [ stocks, setStocks ] = useState<GetStockPriceResponse[]>([]);
   var requestGetStockPriceInterval: NodeJS.Timer;
 
   const logout = () => {
-    authContextValue.setCredential("");
     authContextValue.setIsLogin(false);
-    localStorage.removeItem("credential");
+    removeCookie('Authorization');
   };
 
   useEffect(() => {
@@ -25,6 +27,7 @@ const MainPage = () => {
           setStocks(response);
         });
     }, 1500);
+    authContextValue.setIsLogin(cookies.Authorization !== undefined);
     return () => clearInterval(requestGetStockPriceInterval);
   }, []);
 
@@ -34,8 +37,11 @@ const MainPage = () => {
         Main Page
       </div>
       <span>
-        {authContextValue.isLogin ? 
-          <button onClick={() => logout()}>Logout</button> :
+        {cookies.Authorization !== undefined ? 
+          <>
+            <Link to={PATH.ABOUTME}>ABOUT</Link>
+            <button onClick={() => logout()}>Logout</button>
+          </> :
           <Link to={PATH.LOGIN}>Login</Link>
         }
       </span>

@@ -3,17 +3,22 @@ import { jwtDecode } from "jwt-decode";
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../../context/Auth";
+import fetcher from "../../api/fetcher";
+import axios from "axios";
 
 const LoginPage = () => {
-  const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID as string;
   const navigate = useNavigate();
   const authContextValue = useContext(AuthContext);
+
+  
+
   return (
     <>
       <div>
         SNS 계정으로 로그인
       </div>
-      <GoogleOAuthProvider clientId={clientId}>
+      <a href="http://localhost:8080/oauth2/authorization/google">Google Login</a>
+      {/* <GoogleOAuthProvider clientId={clientId}>
         <GoogleLogin
           onSuccess={(res) => {
             if (res.credential !== undefined) {
@@ -27,7 +32,7 @@ const LoginPage = () => {
             console.log("login failed");
           }}
         />
-      </GoogleOAuthProvider>
+      </GoogleOAuthProvider> */}
     </>
   );
 };

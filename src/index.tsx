@@ -5,6 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import { AuthContextProvider } from './context/Auth';
+import { CookiesProvider } from 'react-cookie';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -13,7 +14,9 @@ var credential = "";
 root.render(
   <BrowserRouter>
     <AuthContextProvider>
-      <App />
+      <CookiesProvider>
+        <App />
+      </CookiesProvider>
     </AuthContextProvider>
   </BrowserRouter>
 );
