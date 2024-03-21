@@ -1,8 +1,20 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { useCookies } from "react-cookie";
+import AuthContext from "../../context/Auth";
+import { useNavigate } from "react-router-dom";
+import PATH from "../../constants/path";
 
 const ProfilePage = () => {
+  const authContextValue = useContext(AuthContext);
+  const [cookies, setCookie, removeCookie] = useCookies(['Authorization']);
+  const navigate = useNavigate();
   const [username, setUsername] = useState("");
+
+  const logout = () => {
+    removeCookie('Authorization');
+    navigate(`${PATH.HOME}`);
+  };
 
   useEffect(() => {
     axios.create({
@@ -15,9 +27,12 @@ const ProfilePage = () => {
   }, []);
 
   return (
-    <div>
-      {username}
-    </div>
+    <>
+      <div>
+        {username}
+      </div>
+      <span className="p-2" onClick={() => logout()}>Logout</span>
+    </>
   );
 };
 

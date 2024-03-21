@@ -1,17 +1,43 @@
 import fetcher from "./fetcher"
 import extractDataFromAxios from "./util/extractor"
 
-export interface GetStockPriceResponse {
-  id: string;
-  title: string;
-  price: number;
-  dayVolume?: string;
-  changePercent: number;
-  lastSize?: string;
+export interface StockPriceResponse {
+  code: string;
+  name: string;
+  base: number;
+  curr: number;
 };
 
-export const requestGetStockPrice = (ticker: String) => 
-  extractDataFromAxios<GetStockPriceResponse>(fetcher.get(`/stock-prices?ticker=${ticker}`));
+export interface StockPricesResponse {
+  prices: StockPriceResponse[];
+};
 
-export const requestGetAllStockPrice = () =>
-  extractDataFromAxios<GetStockPriceResponse[]>(fetcher.get('/stock-prices/all'));
+export interface StockPriceCandleResponse {
+  dt: string;
+  o: number;
+  c: number;
+  l: number;
+  h: number;
+  v: number;
+};
+
+export interface StockPriceCandlesResponse {
+  code: string;
+  candles: StockPriceCandleResponse[];
+};
+
+export interface StockInfoResponse {
+  name: string;
+  symbol: string;
+  base: number;
+  price: number;
+}
+
+export const requestGetStockPricesResponse = (codes: string) => 
+  extractDataFromAxios<StockPricesResponse>(fetcher.get(`/stock-prices?code=${codes}`));
+
+export const requestGetStockInfo = (code: string) =>
+extractDataFromAxios<StockInfoResponse>(fetcher.get(`/stock-info/${code}`));
+
+export const requestGetStockPriceCandlesFor5Years = (code: string) =>
+  extractDataFromAxios<StockPriceCandlesResponse>(fetcher.get(`/stock-prices/${code}/candles/5y`));

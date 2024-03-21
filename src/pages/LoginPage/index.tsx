@@ -9,30 +9,13 @@ import axios from "axios";
 const LoginPage = () => {
   const navigate = useNavigate();
   const authContextValue = useContext(AuthContext);
-
   
-
   return (
     <>
       <div>
-        SNS 계정으로 로그인
+        Login by
       </div>
       <a href="http://localhost:8080/oauth2/authorization/google">Google Login</a>
-      {/* <GoogleOAuthProvider clientId={clientId}>
-        <GoogleLogin
-          onSuccess={(res) => {
-            if (res.credential !== undefined) {
-              localStorage.setItem("credential", res.credential);
-              authContextValue.setCredential(res.credential);
-              authContextValue.setIsLogin(true);
-              navigate('/');
-            }
-          }}
-          onError={() => {
-            console.log("login failed");
-          }}
-        />
-      </GoogleOAuthProvider> */}
     </>
   );
 };
