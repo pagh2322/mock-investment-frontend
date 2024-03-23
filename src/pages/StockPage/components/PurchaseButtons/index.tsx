@@ -15,6 +15,7 @@ const PurchaseButtons = (props: PurchaseButtonsProps) => {
   const [showSellWindow, setShowSellWindow] = useState(false);
   const [volume, setVolume] = useState(1);
   const [bidPrice, setBidPrice] = useState(0);
+  const [cannotBuy, setCannotBuy] = useState(true);
   const authContextValue = useContext(AuthContext);
 
   const handleShowBuyWindow = () => {
@@ -31,6 +32,7 @@ const PurchaseButtons = (props: PurchaseButtonsProps) => {
     const value = parseInt(event.target.value);
     if (!isNaN(value) && value >= 1) {
       setVolume(value);
+      setCannotBuy(!authContextValue.isLogin() || props.balance < (bidPrice * value));
     }
   };
 
@@ -38,6 +40,8 @@ const PurchaseButtons = (props: PurchaseButtonsProps) => {
     const value = parseFloat(event.target.value);
     if (!isNaN(value) && value >= 0) {
       setBidPrice(value);
+      setCannotBuy(!authContextValue.isLogin() || props.balance < (value * volume));
+      console.log(!authContextValue.isLogin());
     }
   };
 
@@ -46,10 +50,9 @@ const PurchaseButtons = (props: PurchaseButtonsProps) => {
       bidPrice: bidPrice,
       volume: volume
     })
-      .then(response => {
-        console.log(response);
+      .then(() => {
         handleCloseBuyWindow();
-        // window.location.reload();
+        window.location.reload();
       });
   }
 
@@ -69,6 +72,7 @@ const PurchaseButtons = (props: PurchaseButtonsProps) => {
         onHide={handleCloseBuyWindow}
         backdrop="static"
         keyboard={false}
+        centered
       >
         <Modal.Header closeButton>
           <Modal.Title>Buy stocks</Modal.Title>
@@ -97,11 +101,11 @@ const PurchaseButtons = (props: PurchaseButtonsProps) => {
           </InputGroup>
         </Modal.Body>
         <Modal.Footer>
-          <div>Current Balance</div>
+          <div>My current balance : {props.balance.toFixed(2)}</div>
           <Button variant="secondary" onClick={handleCloseBuyWindow}>
             Cancel
           </Button>
-          <Button variant="primary" onClick={requestBuyStock}>
+          <Button variant="primary" disabled={cannotBuy} onClick={requestBuyStock}>
             Done
           </Button>
         </Modal.Footer>

@@ -8,6 +8,7 @@ import { Stack } from "react-bootstrap";
 import Tabbar from "./components/Tabbar";
 import PurchaseButtons from "./components/PurchaseButtons";
 import "./styles.css";
+import { CurrentBalanceResponse, requestMyCurrentBalance } from "../../api/balance";
 
 const StockPage = () => {
   const navigate = useNavigate();
@@ -20,6 +21,9 @@ const StockPage = () => {
     price: 0,
   });
   const [candles, setCandles] = useState<StockPriceCandleResponse[]>([]);
+  const [currentBalance, setCurrentBalance] = useState<CurrentBalanceResponse>({
+    balance: 0
+  });
 
   const handleStockCurrentPrice = (event: MessageEvent<any>) => {
     const {code, curr} = JSON.parse(event.data)
@@ -48,11 +52,19 @@ const StockPage = () => {
         setStockInfo(response);
       });
     
+    requestMyCurrentBalance()
+      .then(response => {
+        setCurrentBalance(response);
+      });
+    
     const eventSource = new EventSource(
       `http://localhost:8080/stock-prices/subscribe?code=${code}`, 
       { withCredentials: true }
     );
     eventSource.addEventListener('stock-price', handleStockCurrentPrice);
+    eventSource.onerror = () => {
+      eventSource.close();
+    }
     return () => {
       eventSource.close();
     };
@@ -117,7 +129,8 @@ const StockPage = () => {
           }
         })()}
       </div>
-      <PurchaseButtons code={code} balance={0} />
+
+      <PurchaseButtons code={code} balance={currentBalance.balance} />
     </>
   );
 };

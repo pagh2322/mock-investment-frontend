@@ -8,7 +8,7 @@ interface StockListItemProps {
   name: string;
   base: number;
   curr: number;
-  index: number;
+  index?: number;
 }
 
 const StockListItem = (props: StockListItemProps) => {
@@ -28,7 +28,7 @@ const StockListItem = (props: StockListItemProps) => {
   const curr = props.curr.toFixed(2);
   return (
     <Stack direction="horizontal" style={{ cursor: "pointer" }} onClick={navigateToStockPage}>
-      <div style={{ paddingLeft: "12px" }}>{props.index}</div>
+      {props.index ?? <div style={{ paddingLeft: "12px" }}>{props.index}</div>}
       <Stack className="p-2">
         <div style={{ fontWeight: "bold" }}>{props.name}</div>
         <div>${curr}  <span style={{ color: isMinus ? "blue" : "red" }}>{percentage}%</span></div>

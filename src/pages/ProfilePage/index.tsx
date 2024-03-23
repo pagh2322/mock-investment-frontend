@@ -4,6 +4,7 @@ import { useCookies } from "react-cookie";
 import AuthContext from "../../context/Auth";
 import { useNavigate } from "react-router-dom";
 import PATH from "../../constants/path";
+import { requestMyPortfolio } from "../../api/portfolio";
 
 const ProfilePage = () => {
   const authContextValue = useContext(AuthContext);
@@ -17,12 +18,9 @@ const ProfilePage = () => {
   };
 
   useEffect(() => {
-    axios.create({
-      baseURL: 'http://localhost:8080',
-      withCredentials: true
-    }).get('/oauth/loginInfo')
-      .then(res => {
-        setUsername(res.data["username"]);
+    requestMyPortfolio()
+      .then(response => {
+        console.log(response);
       });
   }, []);
 

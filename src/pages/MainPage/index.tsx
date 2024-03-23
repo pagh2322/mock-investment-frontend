@@ -11,11 +11,16 @@ import { Nav, Stack } from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import StockList from "./components/StockList";
 import Tabbar from "./components/Tabbar";
+import { PortfolioResponse, requestMyPortfolio } from "../../api/portfolio";
+import MyStock from "./components/MyStock";
 
 const MainPage = () => {
   const authContextValue = useContext(AuthContext);
   const [cookies, setCookie, removeCookie] = useCookies(['Authorization']);
   const [currentTab, setCurrentTab] = useState("today");
+  const [myPortfolio, setMyPortfolio] = useState<PortfolioResponse>({
+    items: []
+  });
   const [stockPricesResponse, setStockPricesResponse] = useState<StockPricesResponse>({
     prices: []
   });
@@ -46,11 +51,17 @@ const MainPage = () => {
       `http://localhost:8080/stock-prices/subscribe?code=${codes}`, 
       { withCredentials: true }
     );
-    // authContextValue.setIsLogin(cookies.Authorization !== undefined);
     requestGetStockPricesResponse(codes).then(response => {
       setStockPricesResponse(response);
     });
+    requestMyPortfolio()
+      .then(response => {
+        setMyPortfolio(response);
+      });
     eventSource.addEventListener('stock-price', handleStockCurrentPrice);
+    eventSource.onerror = (event) => {
+      eventSource.close();
+    };
     return () => {
       eventSource.close();
     };
@@ -76,7 +87,7 @@ const MainPage = () => {
       {(() => {
         switch (currentTab) {
           case "my-stock":
-            return <div>My Stock</div>;
+            return <MyStock items={myPortfolio.items} current={stockPricesResponse.prices} />
           case "today":
             return <StockList items={stockPricesResponse.prices} />;
           case "news":
