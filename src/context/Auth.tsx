@@ -3,7 +3,6 @@ import { useCookies } from "react-cookie";
 
 interface AuthContextValue {
   isLogin: () => boolean;
-  // setIsLogin: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const AuthContext = React.createContext<AuthContextValue>({} as AuthContextValue);

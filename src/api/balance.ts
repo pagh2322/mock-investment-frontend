@@ -1,9 +1,9 @@
-import fetcher from "./fetcher";
+import fetcher from "./util/fetcher";
 import extractDataFromAxios from "./util/extractor";
 
-export interface CurrentBalanceResponse {
+export interface GetCurrentBalanceResponse {
   balance: number;
 };
 
-export const requestMyCurrentBalance = () =>
-  extractDataFromAxios<CurrentBalanceResponse>(fetcher.get("/balance/me"));
+export const requestGetCurrentBalance = () =>
+  extractDataFromAxios<GetCurrentBalanceResponse>(fetcher.get("/balance/me"));
