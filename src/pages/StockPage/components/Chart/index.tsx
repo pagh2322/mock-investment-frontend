@@ -25,7 +25,7 @@ const Description = (props: { indicator: string }) => {
   }})();
 
   return (
-    <div style={{ marginTop: "12px", marginBottom: "20px", width: "100%" }}>
+    <div style={{ width: "100%" }}>
       <Button ref={target} onClick={() => setShow(!show)}>
         What is {props.indicator}?
       </Button>
@@ -50,12 +50,7 @@ const Chart = (props: ChartProps) => {
       <hr style={{ margin: "12px" }}/>
       <Styled.Recommend>
         <TitleText text="Latest technical indicator" />
-        <Stack gap={2} direction="horizontal" style={{ marginLeft: "12px" }}>
-          <Description indicator="MA" />
-          <Description indicator="RSI" />
-          <Description indicator="MACD" />
-        </Stack>
-        <Table>
+        <Table style={{ marginTop: "12px" }}>
           <thead>
             <tr>
               <th>MA</th>
@@ -73,6 +68,11 @@ const Chart = (props: ChartProps) => {
             </tr>
           </tbody>
         </Table>
+        <Stack gap={2} direction="horizontal" style={{ margin: "12px" }}>
+          <Description indicator="MA" />
+          <Description indicator="RSI" />
+          <Description indicator="MACD" />
+        </Stack>
       </Styled.Recommend>
     </>
   );

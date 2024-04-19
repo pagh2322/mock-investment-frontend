@@ -160,19 +160,6 @@ export const technicalIndicators = (candles: GetStockPriceCandleResponse[]) => {
 
   var recommend = "";
 
-  // console.log(latestMA);
-  // console.log(latestRSI);
-
-  // // 매수 조건: 주식 가격이 20일 이동평균선 위에 있고 RSI가 30보다 작고 MACD가 시그널 라인을 돌파하면
-  // if (latestPrice > latestMA && latestRSI < 30 && latestMACD > latestSignal) {
-  //     recommend = "Buy";
-  // }
-
-  // // 매도 조건: 주식 가격이 20일 이동평균선 아래에 있고 RSI가 70보다 크고 MACD가 시그널 라인 아래에 있으면
-  // if (latestPrice < latestMA && latestRSI > 70 && latestMACD < latestSignal) {
-  //     recommend = "Sell";
-  // }
-
   if (isGoldenCross && latestPrice > latestMA && latestRSI < 30 && latestMACD > latestSignal) {
     recommend = "Strong Buy"; // 강력한 매수 신호
   } else if (!isGoldenCross && latestPrice > latestMA && latestRSI < 40 && latestMACD > latestSignal) {
