@@ -12,6 +12,9 @@ const QUERY_KEYS = {
   STOCK_VALUES: 'stock-values',
   LIKED_STOCK_PRICES: 'liked-stock-prices',
   OWN_STOCK_TOTAL_VALUE: 'own-stock-total-value',
+  BACK_TEST_RSI_RESULTS: 'back-test-rsi-results',
+  BACK_TEST_CROSS_RESULTS: 'back-test-cross-results',
+  STOCK_MOMENTUM_RANKING: 'stock-momentum-ranking',
 };
 
 export default QUERY_KEYS;
@@ -27,4 +30,6 @@ export const MUTATION_KEYS = {
   UPDATE_NICKNAME: 'update-nickname',
   TOGGLE_COMMENT_LIKE: 'toggle-comment-like',
   CANCEL_STOCK_ORDER: 'cancel-stock-order',
+  BACK_TEST_RSI: 'back-test-rsi',
+  BACK_TEST_CROSS: 'back-test-cross',
 };

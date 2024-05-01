@@ -3,14 +3,10 @@ import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import Tabbar from "./components/Tabbar";
 import StockTickerHeader from "./components/StockTickerHeader";
 import useStockPrices from "../../hooks/stockPrice/useStockPrices";
-import StockOrderHistories from "./components/StockOrderHistories";
-import MyStock from "./components/MyStock";
 import ContentContainer from "./components/ContentContainer";
 import StockOrderButtons from "./components/StockOrderButtons";
 
 import * as Styled from "./index.styles";
-import Financials from "./components/Financials";
-import Seperator from "../../components/Separator";
 
 const StockPage = () => {
   const navigate = useNavigate();

@@ -1,4 +1,4 @@
-import { Spinner } from "react-bootstrap";
+import { Spinner, Stack } from "react-bootstrap";
 import useStockValuesRanking from "../../../../hooks/stockValue/useStockValuesRanking";
 import { useContext } from "react";
 import SimulationContext from "../../../../context/simulation";
@@ -37,19 +37,15 @@ const ValueList = () => {
 
       <Styled.List>
         {data && data.rankings.map((stock => (
-          <StockListItem
-            key={stock.name}
-            code={stock.code}
-            name={stock.name}
-            onClick={navigateToStockPage}
-          />
-          // <Stack direction="horizontal" key={stock.code} onClick={() => navigateToStockPage(stock.code)}>
-          //   <Stack>
-          //     <span>{stock.name}</span>
-          //     <div>{stock.code}</div>
-          //   </Stack>
-          //   <span>per: {stock.per}</span>
-          // </Stack>
+          <Stack>
+            <StockListItem
+              key={stock.name}
+              code={stock.code}
+              name={stock.name}
+              onClick={navigateToStockPage}
+            />
+            <span>per: {stock.per} | pbr: {stock.pbr} | pcr: {stock.pcr} | psr: {stock.psr}</span>
+          </Stack>
         )))}
       </Styled.List>
     </Styled.Container>

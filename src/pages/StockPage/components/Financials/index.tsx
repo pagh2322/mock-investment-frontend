@@ -1,9 +1,10 @@
-import { useContext, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import TitleText from "../../../../components/TitleText";
 import * as Styled from "./index.styles";
 import SimulationContext from "../../../../context/simulation";
 import useStockValues from "../../../../hooks/stockValue/useStockValues";
 import { Button, Overlay, Stack, Table, Tooltip } from "react-bootstrap";
+import axios from "axios";
 
 interface FinancialsProps {
   code: string;
@@ -12,16 +13,14 @@ interface FinancialsProps {
 const Description = (props: { indicator: string }) => {
   const [show, setShow] = useState(false);
   const target = useRef(null);
-  const description = (() => {switch(props.indicator) {
-    case "PER":
-      return "About PER...";
-    case "PBR":
-      return "About PBR...";
-    case "PSR":
-      return "About PSR..."
-    case "PCR":
-      return "About PCR..."
-  }})();
+  const [description, setDescription] = useState("");
+  
+  useEffect(() => {
+    axios.get(`http://localhost:8000/ai/description?keyword=${props.indicator}`)
+    .then(response => {
+      setDescription(response.data);
+    })
+  }, []);
 
   return (
     <span style={{ marginBottom: "12px", marginTop: "12px", width: "100%" }}>

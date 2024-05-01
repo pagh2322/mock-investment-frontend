@@ -8,18 +8,18 @@ export interface GetStockTickerResponse {
 }
 
 export const requestGetStockTicker = (code: string) =>
-  extractDataFromAxios<GetStockTickerResponse>(fetcher.get(`/stock-ticker/${code}`));
+  extractDataFromAxios<GetStockTickerResponse>(fetcher.get(`/stock-tickers/${code}`));
 
 export interface StockTickerLikeResponse {
   isLiked: boolean;
 }
 
 export const toggleStockTickerLike = (code: string) =>
-  extractDataFromAxios<StockTickerLikeResponse>(fetcher.put(`/stock-ticker/${code}/like`));
+  extractDataFromAxios<StockTickerLikeResponse>(fetcher.put(`/stock-tickers/${code}/like`));
 
 export interface GetStockTickersResponse {
   stockTickers: GetStockTickerResponse[];
 };
 
 export const requestGetStockTickers = (keyword: string) =>
-  extractDataFromAxios<GetStockTickersResponse>(fetcher.get(`/stock-ticker/search?keyword=${keyword}`));
+  extractDataFromAxios<GetStockTickersResponse>(fetcher.get(`/stock-tickers/search?keyword=${keyword}`));

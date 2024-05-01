@@ -14,7 +14,7 @@ export interface GetOwnStockResponse {
 };
 
 export const requestGetOwnStocks = (code: string) =>
-  extractDataFromAxios<GetOwnStocksResponse>(fetcher.get(`/member/me/own-stock?code=${code}`));
+  extractDataFromAxios<GetOwnStocksResponse>(fetcher.get(`/own-stocks/me?code=${code}`));
 
 export interface GetOwnStockTotalValueResponse {
   curr: number;
@@ -22,4 +22,4 @@ export interface GetOwnStockTotalValueResponse {
 }
 
 export const requestGetOwnStockTotalValue = (date: string) =>
-  extractDataFromAxios<GetOwnStockTotalValueResponse>(fetcher.get(`/member/me/own-stock/total-value?date=${date}`));
+  extractDataFromAxios<GetOwnStockTotalValueResponse>(fetcher.get(`/own-stocks/me/total-value?date=${date}`));
