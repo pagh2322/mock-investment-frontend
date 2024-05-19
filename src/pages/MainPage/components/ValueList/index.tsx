@@ -33,7 +33,7 @@ const ValueList = () => {
 
   return (
     <Styled.Container>
-      <TitleText text="Value Strategy" />
+      <TitleText text="Value Strategy Recommendation" />
 
       <Styled.List>
         {data && data.rankings.map((stock => (

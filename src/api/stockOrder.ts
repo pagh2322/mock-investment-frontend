@@ -34,4 +34,4 @@ export const createStockOrder = (code: string, body: CreateStockOrderRequest) =>
   extractDataFromAxios<void>(fetcher.post(`/stocks/${code}/order`, body));
 
 export const cancelStockOrder = (stockOrderId: number) =>
-  extractDataFromAxios<void>(fetcher.post(`/stock-orders/${stockOrderId}`));
+  extractDataFromAxios<void>(fetcher.delete(`/stock-orders/${stockOrderId}`));

@@ -64,10 +64,9 @@ const Chart = (props: ChartProps) => {
         <Table style={{ marginTop: "12px" }}>
           <thead>
             <tr>
-              <th>MA</th>
+              <th>MA-20</th>
               <th>RSI</th>
               <th>MACD (Cross)</th>
-              <th>AI's recommendation</th>
             </tr>
           </thead>
           <tbody>
@@ -75,10 +74,15 @@ const Chart = (props: ChartProps) => {
               <td>{technical.latestMA.toFixed(2)}</td>
               <td>{technical.latestRSI.toFixed(2)}</td>
               <td>{technical.latestMACD.toFixed(2)} ({technical.cross})</td>
-              <td>
-              {description}
-              </td>
             </tr>
+          </tbody>
+        </Table>
+        <Table style={{ marginTop: "12px" }}>
+          <thead>
+            <tr><th>AI's recommendation</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>{description}</td></tr>
           </tbody>
         </Table>
         <Stack gap={2} direction="horizontal" style={{ margin: "12px", width: "100%" }}>

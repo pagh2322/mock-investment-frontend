@@ -21,8 +21,7 @@ export interface BackTestTradeHistoryResponse {
   buy: boolean;
   price: number;
   amount: number;
-  rsi?: number;
-  cross?: string;
+  message: string;
   tradeDate: string;
 };
 

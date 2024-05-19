@@ -212,7 +212,7 @@ const BackTestHistoryListItem = (props: BackTestHistoryListItemProps) => {
         </Stack>
       </Styled.Box>
       
-      <Styled.ExcutedDate>{(item.rsi === undefined || item.rsi === null) ? item.cross : `rsi: ${item.rsi.toFixed(2)}`}</Styled.ExcutedDate>
+      <Styled.ExcutedDate>{item.message}</Styled.ExcutedDate>
     </Stack>
   )
 };

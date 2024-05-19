@@ -9,6 +9,7 @@ import MoneyText from "../../../../components/MoneyText";
 import ChangePercentage from "../../../../components/ChangePercentage";
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
+import TitleText from "../../../../components/TitleText";
 
 
 export interface StockTickerProps {
@@ -38,7 +39,7 @@ const StockTickerHeader = (props: StockTickerProps) => {
 
       <HeaderContent>
         <Stack gap={2} direction="horizontal">
-          <Stack style={{ width: "100%" }}>
+          <Stack style={{ width: "50%" }}>
             <StockNameAndCode
               name={price.name}
               nameSize="large"
@@ -48,7 +49,10 @@ const StockTickerHeader = (props: StockTickerProps) => {
             <Price><MoneyText money={curr.toFixed(2)} /></Price>
             <ChangePercentage base={price.base} curr={curr} />
           </Stack>
-          <span>{description}</span>
+          <Stack style={{ width: "100%" }}>
+            <TitleText text="AI's description"/>
+            <div>{description}</div>
+          </Stack>
         </Stack>
       </HeaderContent>
     </Container>

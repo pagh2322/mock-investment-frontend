@@ -34,7 +34,7 @@ const MomentumList = () => {
   
   return (
     <Styled.Container>
-      <TitleText text="Momentum Strategy" />
+      <TitleText text="Momentum Strategy Recommendation" />
       <div style={{ marginTop: "12px" }}>
         {stockMomentums.map((momentum => (
           <StockListItem
