@@ -11,28 +11,6 @@ import ChangePercentage from "../../../../components/ChangePercentage";
 import TitleText from "../../../../components/TitleText";
 import MoneyText from "../../../../components/MoneyText";
 
-const ModeButtons = ({
-  isAverageCost,
-  setIsAverageCost
-}: {
-  isAverageCost: boolean;
-  setIsAverageCost: React.Dispatch<React.SetStateAction<boolean>>;
-}) => {
-  return (
-    <div style={{ textAlign: "end", marginBottom: "16px" }}>
-      <ToggleButtonGroup type="radio" name="options" defaultValue={2}>
-        <ToggleButton id="tbg-radio-1" type="checkbox" value={1} variant={!isAverageCost ? "primary" : "outline-primary"}
-          onChange={() => setIsAverageCost(false)}>
-          Currnet Price
-        </ToggleButton>
-        <ToggleButton id="tbg-radio-2" type="checkbox" value={2} variant={isAverageCost ? "primary" : "outline-primary"}
-          onChange={() => setIsAverageCost(true)}>
-          Average cost
-        </ToggleButton>
-      </ToggleButtonGroup>
-    </div>
-  );
-}
 
 const OwnStockList = () => {
   const simulation = useContext(SimulationContext);
@@ -47,10 +25,12 @@ const OwnStockList = () => {
 
   return (
     <Styled.Container>
-      <TitleText text="Own stocks" />
+      <TitleText text="보유 주식" />
       {ownStockTotalValue &&
         <Stack>
-          <Styled.TotalOwnStockValue><MoneyText money={ownStockTotalValue.curr.toFixed(2)} /></Styled.TotalOwnStockValue>
+          <Styled.TotalOwnStockValue>
+            <MoneyText money={ownStockTotalValue.curr.toFixed(2)} />
+          </Styled.TotalOwnStockValue>
           <ChangePercentage
             base={ownStockTotalValue.base}
             curr={ownStockTotalValue.curr}
@@ -59,7 +39,26 @@ const OwnStockList = () => {
         </Stack>
       }
       
-      {ModeButtons({ isAverageCost, setIsAverageCost })}
+      <Styled.ModeButtons>
+        <ToggleButtonGroup type="radio" name="options" defaultValue={2}>
+          <ToggleButton
+            id="tbg-radio-1"
+            type="checkbox"
+            value={1}
+            variant={!isAverageCost ? "primary" : "outline-primary"}
+            onChange={() => setIsAverageCost(false)}>
+            현재가
+          </ToggleButton>
+          <ToggleButton
+            id="tbg-radio-2"
+            type="checkbox"
+            value={2}
+            variant={isAverageCost ? "primary" : "outline-primary"}
+            onChange={() => setIsAverageCost(true)}>
+            평가금
+          </ToggleButton>
+        </ToggleButtonGroup>
+      </Styled.ModeButtons>
       
       {ownStocks.map((ownStock) => (
         <StockListItem

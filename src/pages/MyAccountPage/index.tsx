@@ -25,7 +25,7 @@ const MyAccountPage = () => {
     navigate(`${PATH.HOME}`);
   };
 
-  if (!auth.isLogin()) {
+  if (!auth.isLogin) {
     return (
       <Styled.Container>
         <Link to={PATH.LOGIN} style={{ marginLeft: "12px", marginRight: "12px" }}>Register/Login</Link>

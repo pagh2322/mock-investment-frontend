@@ -137,7 +137,7 @@ const StockOrderButtons = (props: StockOrderButtonsProps) => {
         <Button
           variant="primary"
           size="lg"
-          disabled={!authContextValue.isLogin()}
+          disabled={!authContextValue.isLogin}
           onClick={handleShowBuyWindow}
           style={{ width: "100%" }}
         >
@@ -147,7 +147,7 @@ const StockOrderButtons = (props: StockOrderButtonsProps) => {
         <Button
           variant="danger"
           size="lg"
-          disabled={!authContextValue.isLogin() || ownStocks.length == 0}
+          disabled={!authContextValue.isLogin || ownStocks.length == 0}
           onClick={handleShowSellWindow}
           style={{ width: "100%" }}
         >

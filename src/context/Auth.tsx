@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { useCookies } from "react-cookie";
+import { CookiesProvider, useCookies } from "react-cookie";
 
 interface AuthContextValue {
-  isLogin: () => boolean;
+  isLogin: boolean;
 }
 
 const AuthContext = React.createContext<AuthContextValue>({} as AuthContextValue);
@@ -13,7 +13,9 @@ export const AuthContextProvider = ({ children }: { children: React.ReactNode })
     return cookies.Authorization !== undefined;
   }
 
-  return <AuthContext.Provider value={{ isLogin }}>{children}</AuthContext.Provider>;
+  return <CookiesProvider>
+      <AuthContext.Provider value={{ isLogin: isLogin() }}>{children}</AuthContext.Provider>
+      </CookiesProvider>
 };
 
 export default AuthContext;

@@ -49,7 +49,7 @@ const StockListItem = (props: StockListItemProps) => {
       <StockNameAndCode
         name={props.name}
         code={props.code}
-        subTitle={props.isAverageCost ? `Quantity: ${props.quantity}` : `Average cost: $${props.averageCost.toFixed(2)}`}
+        subTitle={props.isAverageCost ? `${props.quantity}주` : `내 평균 $${props.averageCost.toFixed(2)}`}
       />
       <Stack style={{ textAlign: "end" }}>
         <Price><MoneyText money={curr.toFixed(2)} /></Price>

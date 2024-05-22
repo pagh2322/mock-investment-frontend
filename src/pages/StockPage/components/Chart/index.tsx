@@ -14,46 +14,10 @@ interface ChartProps {
   end: string;
 };
 
-const Description = (props: { indicator: string }) => {
-  const [show, setShow] = useState(false);
-  const target = useRef(null);
-  const [description, setDescription] = useState("");
-  
-  useEffect(() => {
-    axios.get(`http://localhost:8000/ai/description?keyword=${props.indicator}`)
-    .then(response => {
-      setDescription(response.data);
-    })
-  }, []);
-
-  return (
-    <div style={{ width: "100%" }}>
-      <Button ref={target} onClick={() => setShow(!show)}>
-        What is {props.indicator}?
-      </Button>
-      <Overlay target={target.current} show={show} placement="bottom">
-        {(props) => (
-          <Tooltip id="overlay-example" {...props}>
-            {description}
-          </Tooltip>
-        )}
-      </Overlay>
-    </div>
-  );
-}
-
 const Chart = (props: ChartProps) => {
   const data = useStockPriceCandles({ code: props.code, end: props.end, period: "1y"}).data?.candles ?? [];
   const option = candleChartOption(props.code, data);
   const technical = technicalIndicators(data);
-  const [description, setDescription] = useState("");
-  
-  useEffect(() => {
-    axios.get(`http://localhost:8000/stocks/recommend?code=${props.code}&date=${props.end}`)
-    .then(response => {
-      setDescription(response.data);
-    })
-  }, []);
 
   return (
     <>
@@ -77,19 +41,6 @@ const Chart = (props: ChartProps) => {
             </tr>
           </tbody>
         </Table>
-        <Table style={{ marginTop: "12px" }}>
-          <thead>
-            <tr><th>AI's recommendation</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>{description}</td></tr>
-          </tbody>
-        </Table>
-        <Stack gap={2} direction="horizontal" style={{ margin: "12px", width: "100%" }}>
-          <Description indicator="MA" />
-          <Description indicator="RSI" />
-          <Description indicator="MACD" />
-        </Stack>
       </Styled.Recommend>
       <hr style={{ margin: "12px" }}/>
       <BackTest code={props.code} />

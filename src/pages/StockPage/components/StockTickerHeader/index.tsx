@@ -7,9 +7,6 @@ import StockNameAndCode from "../../../../components/StockNameAndCode";
 import { Container, HeaderContent, Price } from "./index.styles";
 import MoneyText from "../../../../components/MoneyText";
 import ChangePercentage from "../../../../components/ChangePercentage";
-import { useEffect, useRef, useState } from "react";
-import axios from "axios";
-import TitleText from "../../../../components/TitleText";
 
 
 export interface StockTickerProps {
@@ -21,14 +18,6 @@ const StockTickerHeader = (props: StockTickerProps) => {
   const price = props.price;
   const isLiked = useStockTicker({ code: price.code }).data?.isLiked ?? false;
   const curr = price.curr;
-  const [description, setDescription] = useState("");
-  
-  useEffect(() => {
-    axios.get(`http://localhost:8000/stocks/description?name=${price.name}`)
-    .then(response => {
-      setDescription(response.data);
-    })
-  }, []);
 
   return (
     <Container>
@@ -48,10 +37,6 @@ const StockTickerHeader = (props: StockTickerProps) => {
             />
             <Price><MoneyText money={curr.toFixed(2)} /></Price>
             <ChangePercentage base={price.base} curr={curr} />
-          </Stack>
-          <Stack style={{ width: "100%" }}>
-            <TitleText text="AI's description"/>
-            <div>{description}</div>
           </Stack>
         </Stack>
       </HeaderContent>

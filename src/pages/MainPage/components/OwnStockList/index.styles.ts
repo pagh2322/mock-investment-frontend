@@ -7,4 +7,9 @@ export const Container = styled.div`
 export const TotalOwnStockValue = styled.div`
   font-weight: bold;
   font-size: x-large;
-`
+`;
+
+export const ModeButtons = styled.div`
+  text-align: end;
+  margin-bottom: 16px;
+`;

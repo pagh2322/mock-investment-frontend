@@ -1,8 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import OwnStockList from "./components/OwnStockList";
 import Header from "./components/Header";
-import ValueList from "./components/ValueList";
-import MomentumList from "./components/MomentumList";
 import Seperator from '../../components/Separator';
 import StockLikeList from './components/StockLikeList';
 
@@ -13,9 +11,7 @@ const MainPage = () => {
     <Styled.Container>
       <Header /><Seperator />
       <OwnStockList /><Seperator />
-      <StockLikeList /><Seperator />
-      <ValueList /><Seperator />
-      <MomentumList />
+      <StockLikeList />
     </Styled.Container>
   );
 };

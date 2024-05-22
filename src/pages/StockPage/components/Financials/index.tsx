@@ -10,34 +10,6 @@ interface FinancialsProps {
   code: string;
 };
 
-const Description = (props: { indicator: string }) => {
-  const [show, setShow] = useState(false);
-  const target = useRef(null);
-  const [description, setDescription] = useState("");
-  
-  useEffect(() => {
-    axios.get(`http://localhost:8000/ai/description?keyword=${props.indicator}`)
-    .then(response => {
-      setDescription(response.data);
-    })
-  }, []);
-
-  return (
-    <span style={{ marginBottom: "12px", marginTop: "12px", width: "100%" }}>
-      <Button ref={target} onClick={() => setShow(!show)}>
-        What is {props.indicator}?
-      </Button>
-      <Overlay target={target.current} show={show} placement="bottom">
-        {(props) => (
-          <Tooltip id="overlay-example" {...props}>
-            {description}
-          </Tooltip>
-        )}
-      </Overlay>
-    </span>
-  );
-}
-
 const Financials = (props: FinancialsProps) => {
   const simulation = useContext(SimulationContext);
   const values = useStockValues(props.code, simulation.date).data?.values ?? [];
@@ -51,12 +23,6 @@ const Financials = (props: FinancialsProps) => {
   return (
     <Styled.Container>
       <TitleText text="Financials indicators"/>
-      <Stack gap={2} direction="horizontal">
-        <Description indicator="PER"/>
-        <Description indicator="PBR"/>
-        <Description indicator="PSR"/>
-        <Description indicator="PCR"/>
-      </Stack>
       <Table style={{ marginTop: "8px" }}>
         <thead>
           <tr>
